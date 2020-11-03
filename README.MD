@@ -11,87 +11,72 @@ If you do not have an account yet, you can obtain an Oracle Free Tier account by
 
 ## 1. Preparing your environment
 
-- Open the [OCI console](https://console.eu-frankfurt-1.oraclecloud.com), log in using the **Single Sign On** menu on the **left** 
+Open the [OCI console](https://console.eu-frankfurt-1.oraclecloud.com), log in using the **Single Sign On** menu on the **left** 
 
-Create a token for your user (will be used to login to the docker repository):
+<create a section explaining how to add compartment>
 
-- Open your **User Settings** by clicking on the icon on the top right of the console, then select *User Settings* ![](images/ppan4.png)
+## 2. Setting up a Kubernetes cluster
 
-- You can now see the details of your user account:
+We will be using an Oracle Cloud Managed Kubernetes cluster to deploy weblogic.
 
-  ![](images/token1.png)
+- Navigate to the ***Developer Services***, then ***Container Clusters (OKE)***.
 
-- Select **Auth Token** in the left-hand menu, then click the button **Generate Token**.
+  ![image-20191220165407475](images/menuOKE.png)
 
-    - Enter a name for the token
+- Use the **Create Cluster** button, and select the **Quick Create** type of installation
 
-    - Use the **Copy** button to copy the token in your buffer, and **immediately paste it** in a notebook of your choice, you will need this later.
+- Click the **Launch Workflow** button to start the configuration
 
-    ![](images/token2.png)
-    
-    ## 2. Setting up a Kubernetes cluster
-    
-    We will be using an Oracle Cloud Managed Kubernetes cluster to deploy weblogic.
-    
-    - Navigate to the ***Developer Services***, then ***Container Clusters (OKE)***.
-    
-      ![image-20191220165407475](images/menuOKE.png)
-    
-    - Use the **Create Cluster** button, and select the **Quick Create** type of installation
-    
-    - Click the **Launch Workflow** button to start the configuration
-    
-    - On the **Create cluster** screen, enter following parameters:
-    
-        - Name : the name of your cluster.  We will be using the name *verrazzano_OkeLab_(your_initials)* in this tutorial.  Please replace (your_initials) by a 3-letter code, for example Abc
-        - Choose the CTDOKE compartment if it is available in the tenancy.
-        - Select **Public** worker nodes
-        - Choose the shape VM_Standard2.4
-        - **Remark**: you might have to check available compute shapes on your tenancy.  You can do this by visualizing the **Service Limits** on the "Administration" , "Tenancy Details" page.
-        - Select the **Number of nodes** you want to create in the node pool.  For example you could make this correspond to the number of *Availability Domains* in the *Region* you are using : in Frankfurt this is **3**, in Amsterdam this is **1**.  More details [here](https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm).
-        - Click the **Next** button to confirm the configuration, then **Create Cluster** to start the creation.
-    
-      
-    
-    
-      ![image-20191220180903279](images/create-cluster.png)
-    
-    
-    
-    Once the cluster is created (the nodes will continue to be created), you can access the button ![image-20191220181646639](images/kubeconfigbutton2.png), and copy the command to download the kubeconfig file of your cluster.
-    
-    This command will look like: 
-    
-    ```
-    oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaymqyweojygcqwinbwg4yw --file $HOME/.kube/config --region eu-frankfurt-1 --token-version 2.0.0
-    ```
-    
-    
-    
-    - Open the **Cloud Shell** using the button **">_"** in the upper right of the console.
-    
-    - Execute the command you copied.  Example :
-    
-      ```
-      EXAMPLE ONLY : oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae4wmmjvmzobzmojqmy3dqz4ggntbgcrtqzrvmy4d --file $HOME/.kube/config --region eu-frankfurt-1 --token-version 2.0.0 
-      ```
-      
-    - We will be running this command to validate that the cluster is up and running. Give it some time, generally it takes around 10 minutes before you can see the nodes listed.
-    
-      ```
-      kubectl get nodes
-      ```
-      
-      ```
-      NAME        STATUS   ROLES   AGE   VERSION
-      10.0.10.2   Ready    node    15h   v1.16.8
-      10.0.10.3   Ready    node    15h   v1.16.8
-      10.0.10.4   Ready    node    15h   v1.16.8
-      ```
+- On the **Create cluster** screen, enter following parameters:
+
+    - Name : the name of your cluster.  We will be using the name *verrazzano_OkeLab_(your_initials)* in this tutorial.  Please replace (your_initials) by a 3-letter code, for example Abc
+    - Choose the **CTDOKE** compartment if it is available in the tenancy.
+    - Select ***v1.16.8*** in the Kubernetes Version section
+    - Select **Public** worker nodes
+    - Choose the shape **VM_Standard2.4**
+    - **Remark**: you might have to check available compute shapes on your tenancy.  You can do this by visualizing the **Service Limits** on the "Administration" , "Tenancy Details" page.
+    - Select the **Number of nodes** you want to create in the node pool.  For example you could make this correspond to the number of *Availability Domains* in the *Region* you are using : in Frankfurt this is **3**, in Amsterdam this is **1**.  More details [here](https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm).
+    - Click the **Next** button to confirm the configuration, then **Create Cluster** to start the creation.
+
+  
+
+
+  ![image-20191220180903279](images/create-cluster.png)
+
+
+
+Once the cluster is created (the nodes will continue to be created), you can access the button ![image-20191220181646639](images/kubeconfigbutton2.png), and copy the command to download the kubeconfig file of your cluster.
+
+This command will look like: 
+
+```
+oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaymqyweojygcqwinbwg4yw --file $HOME/.kube/config --region eu-frankfurt-1 --token-version 2.0.0
+```
+
+
+
+- Open the **Cloud Shell** using the button **">_"** in the upper right of the console.
+
+- Execute the command you copied.  Example :
+
+  ```
+  EXAMPLE ONLY : oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae4wmmjvmzobzmojqmy3dqz4ggntbgcrtqzrvmy4d --file $HOME/.kube/config --region eu-frankfurt-1 --token-version 2.0.0 
+  ```
+  
+- (Optional) We will be running this command to validate that the cluster is up and running. Give it some time, generally it takes around 10 minutes before you can see the nodes listed.
+
+  ```
+  kubectl get nodes
+  ```
+  
+  ```
+  NAME        STATUS   ROLES   AGE   VERSION
+  10.0.10.2   Ready    node    15h   v1.16.8
+  10.0.10.3   Ready    node    15h   v1.16.8
+  10.0.10.4   Ready    node    15h   v1.16.8
+  ```
 
 ## 3. Installing Verrazzano in your OKE cluster
-
-
 
 1. First we clone the Verrazzano repo. This has all of the scripts we need to set it up in our OKE cluster.
 
@@ -107,17 +92,16 @@ Create a token for your user (will be used to login to the docker repository):
    export KUBECONFIG=$VERRAZZANO_KUBECONFIG
    ```
 
-3. Create a secret for OCIR so you can pull private repos
+3. Create a secret for OCR so you can pull from the Oracle Container Registry repos
 
    ```
-   kubectl create secret docker-registry ko-ocirsecret \
-     --docker-server=fra.ocir.io \
-     --docker-username='oractdemeabdmnative/oracleidentitycloudservice/koucif' \
-     --docker-password='H1H7]jzugCw<[+q5-d4X' \
-     --docker-email='kadday.oucif@oracle.com' 
+   kubectl create secret docker-registry ocr \
+           --docker-server=container-registry.oracle.com \
+           --docker-username='kadday.oucif@oracle.com' \
+           --docker-password='MarieHassner123.' \
+           --docker-email='kadday.oucif@oracle.com'
+   ```
    
-   ```
-
 4. Now we need to install helm and the version must be v3.0.x, v.3.1.x or v3.2.x. To not make it conflict with current versions of helm / upcoming downloads of helm to the later version we'll create a bin directory and refer to it in this lab.
 
    ```wget https://get.helm.sh/helm-v3.2.0-linux-amd64.tar.gz```
@@ -147,13 +131,15 @@ Create a token for your user (will be used to login to the docker repository):
 
    Save it
 
-5. Install Verrazano (this is using xip.io)
+5. Install Verrazano
 
    First, we install istio. Script output displays progress.
+Go to
+   `cd /verrazzano/install/`
+   
+   Run the 1st script
 
-   ```
-      ./1-install-istio.sh
-   ```
+   ```./1-install-istio.sh```
 
    Next some open-source components that verrazano relies on
 
@@ -167,17 +153,134 @@ Create a token for your user (will be used to login to the docker repository):
 
    ```./4-install-keycloak.sh```
 
-   When we installed, you see the url where we can access the UI - grafana prometheus others
+6. If all of the steps are showing you a green <span style="color:#2c9320">**OK**</span> then you've most probably successfully installed Verrazzano. By using the scripts **Rancher**, **CertManager**, **Istio** and **Ingress Controllers** have been installed for you and set up for you. You can see the urls for a couple of services and the UI endpoint. Each password is saved in the secrets presented, save the commands. We're going to use some of them at the end. 
 
-   also see username and passwords set up
+   
 
-   theyre all put in secrets
+   ![verrazzano-installation-complete](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/verrazzano-installation-complete.png)
 
-   some infra has been installed
+   
 
-   Rancher, certmanager & ingress controllers installed
+## 4. Deploying the application
 
-   Istio has been set up
+1. We're now going to deploy the sample application on top of our OKE Cluster. The example application consists of three main parts:
 
+   - A back-end "order processing" application, which is a Java EE application with REST services and a very simple JSP UI, which stores data in a MySQL database. This application runs on WebLogic Server.
+   - A front-end web store "Robert's Books", which is a general book seller. This is implemented as a Helidon microservice, which gets book data from Coherence (using CDI) and has a React web UI.
+   - A front-end web store "Bobby's Books", which is a children's book store. This is implemented as a Helidon microservice which gets book data from a (different) Coherence using CDI and has a JSF web UI running on WebLogic Server.
 
+2. Let's make sure we're allowed to pull the containers for *Weblogic*, *Coherence* and *Verrazzano*. If you have not done so already, in a web browser, navigate to the [Oracle Container Registry](https://container-registry.oracle.com/):
 
+   - Select **Middleware** **![Screenshot 2020-11-03 at 13.05.15](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Screenshot 2020-11-03 at 13.05.15.png)**
+     ![](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Screenshot 2020-11-03 at 13.19.31.png)
+
+   - On the right hand-side, you can review and ***Sign in*** to accept the licenses for the WebLogic images. Go back and do the same thing for the Coherence images. 
+     ![Screenshot 2020-11-03 at 13.21.02](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Screenshot 2020-11-03 at 13.21.02.png)
+
+   - Go back to the [Oracle Container Registry](https://container-registry.oracle.com/) home page and do the same thing, this time for the **Verrazzano** container. You can find it bottom right.
+      ![Screenshot 2020-11-03 at 14.21.19](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Screenshot 2020-11-03 at 14.21.19.png)
+
+   - Review and accept the licenses for these four repositories: `example-bobbys-coherence`, `example-bobbys-front-end`, `example-bobs-books-order-manager`, and `example-roberts-coherence`.
+     This time, press the ![Screenshot 2020-11-03 at 14.25.05](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Screenshot 2020-11-03 at 14.25.05.png)on the right hand-side and accept *Terms and Conditions*
+
+     ![Screenshot 2020-11-03 at 13.27.09](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Screenshot 2020-11-03 at 13.27.09.png)
+
+   You will not be able to pull these images until you have accepted the licenses.
+
+3. Create secrets containing the WebLogic administration credentials for the two domains:
+
+   ```
+   kubectl create secret generic bobs-bookstore-weblogic-credentials \
+           --from-literal=username=weblogic \
+           --from-literal=password=welcome1
+   ```
+
+   ```
+   kubectl create secret generic bobbys-front-end-weblogic-credentials \
+           --from-literal=username=weblogic \
+           --from-literal=password=welcome1
+   ```
+
+   Note that the example applications are pre-configured to use these credentials. If you want to use different credentials, you will need to rebuild the Docker images for the example application. The source code for the example applications is in the [examples repository](https://github.com/verrazzano/examples).
+
+4. Before we deploy the database, let's create a secret containing the MySQL credentials:
+
+   ```
+   kubectl create secret generic mysql-credentials \
+           --from-literal=username=books \
+           --from-literal=password=WebLogic1234
+   ```
+
+5. And now let's deploy the MySQL database. Let's open up the example application folder. From the home folder do this (or if you're not in the home folder do `cd` and then the upcoming command;
+
+   ```
+   cd verrazzano/examples/bobs-books/
+   ```
+
+   Let's deploy the database
+
+   ```
+   kubectl apply -f mysql.yaml
+   ```
+
+   You should now have a similar output;![Screenshot 2020-11-03 at 15.25.14](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Screenshot 2020-11-03 at 15.25.14.png)
+
+6. Now that the database is in place, let's deploy the Verrazzano Application Model for Bob's Books. The sample application however comes pre-defined with a couple of variables and since we created a secret with our initials (very much needed if you're multiple people working in the cluster) we need to make sure our secret is referred in the deployment file. 
+
+   Start with:
+
+   ```
+   nano bobs-books-model.yaml 
+   ```
+
+   As you can see, the credentials of the secret named `ocr` that we created earlier is already referred in various places where we need to authenticate towards the registry. Press `ctrl + X`if you're on Windows or `Control + X`if you're on Mac
+
+   ```
+   kubectl apply -f mbobs-books-model.yaml
+   ```
+
+7. Deploy the Verrazzano Application Binding for Bob's Books:
+
+8. ```
+   kubectl apply -f bobs-books-binding.yaml
+   ```
+
+## 5. Access the example application
+
+1. Now let's give the services a couple of minutes to spin up. I suggest you get a coffee or read an email and then when you've done that, let's continue.
+
+2. First get the external address of the Istio ingress gateway. Access to the example application is through the ingress gateway of the Istio mesh.
+
+   Run this command to get the external IP address of the Istio ingress gateway:
+
+   ```
+   kubectl get service istio-ingressgateway -n istio-system
+   ```
+
+   For example, assume the response is. Save the `EXTERNAL-IP` :
+
+   ```
+   NAME                   TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                      AGE
+   istio-ingressgateway   LoadBalancer   10.96.39.106   123.456.78.901   80:31380/TCP,443:31390/TCP   4d2h
+   ```
+
+   Now use the `EXTERNAL IP` to access your application front-ends and the **Weblogic** admin console. You can see an example of how you can reach them below (the IP provided in the beginning is an example).
+
+   | Description                    | End Point                              | Credentials           |
+   | ------------------------------ | -------------------------------------- | --------------------- |
+   | Bobby's Books                  | http://123.456.78.901/bobbys-front-end |                       |
+   | Robert's Books                 | http://123.456.78.901/                 |                       |
+   | Bobby's Books WebLogic Console | http://123.456.78.901/console          | `weblogic`/`welcome1` |
+
+4. If everything went as it should then you should be seeing this:![Bobbys Books](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Bobbys Books.png)
+   ![Roberts Books](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/Roberts Books.png)
+
+5. `kubectl get ingress -A` gives you the endpoint names for your services. 
+
+   You access the **ElasticSearch**, **Kibana**, **Grafana** and **Prometheus** services by logging in with the username `Verrazzano`. Password can be retrieved by running the `kubectl get secret` command shown at the end of our Verrazzano installation:
+
+   ```
+   kubectl get secret --namespace verrazzano-system verrazzano -o jsonpath={.data.password} | base64 --decode; echo
+   ```
+
+6. Congratulations - you've complete the lab!
