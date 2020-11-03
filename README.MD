@@ -155,7 +155,7 @@ Go to
 
 6. If all of the steps are showing you a green <span style="color:#2c9320">**OK**</span> then you've most probably successfully installed Verrazzano. By using the scripts **Rancher**, **CertManager**, **Istio** and **Ingress Controllers** have been installed for you and set up for you. You can see the urls for a couple of services and the UI endpoint. Each password is saved in the secrets presented, save the commands. We're going to use some of them at the end. 
 
-   ![verrazzano-installation-complete](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/verrazzano-installation-complete.png)
+   ![verrazzano-installation-complete](images/verrazzano/verrazzano-installation-complete.png)
 
    
 
@@ -171,19 +171,19 @@ Go to
 
 2. Let's make sure we're allowed to pull the containers for *Weblogic*, *Coherence* and *Verrazzano*. If you have not done so already, in a web browser, navigate to the [Oracle Container Registry](https://container-registry.oracle.com/):
 
-   - Select **Middleware** **![ocr-middleware](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/ocr-middleware.png)**
-     ![](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/ocr-coherence-weblogic.png)
+   - Select **Middleware** **![ocr-middleware](images/verrazzano/ocr-middleware.png)**
+     ![](images/verrazzano/ocr-coherence-weblogic.png)
 
    - On the right hand-side, you can review and ***Sign in*** to accept the licenses for the WebLogic images. Go back and do the same thing for the Coherence images. 
-     ![Screenshot 2020-11-03 at 13.21.02](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/ocr-accept-terms.png)
+     ![Screenshot 2020-11-03 at 13.21.02](images/verrazzano/ocr-accept-terms.png)
 
    - Go back to the [Oracle Container Registry](https://container-registry.oracle.com/) home page and do the same thing, this time for the **Verrazzano** container. You can find it bottom right.
-      ![Screenshot 2020-11-03 at 14.21.19](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/ocr-verrazzano.png)
+      ![Screenshot 2020-11-03 at 14.21.19](images/verrazzano/ocr-verrazzano.png)
 
    - Review and accept the licenses for these four repositories: `example-bobbys-coherence`, `example-bobbys-front-end`, `example-bobs-books-order-manager`, and `example-roberts-coherence`.
-     This time, press the ![Screenshot 2020-11-03 at 14.25.05](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/ocr-accept-continue.png)on the right hand-side and accept *Terms and Conditions*
+     This time, press the ![Screenshot 2020-11-03 at 14.25.05](images/verrazzano/ocr-accept-continue.png)on the right hand-side and accept *Terms and Conditions*
 
-     ![Screenshot 2020-11-03 at 13.27.09](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/ocr-verrazzano-apps.png)
+     ![Screenshot 2020-11-03 at 13.27.09](images/verrazzano/ocr-verrazzano-apps.png)
 
    You will not be able to pull these images until you have accepted the licenses.
 
@@ -223,7 +223,7 @@ Go to
    kubectl apply -f mysql.yaml
    ```
 
-   You should now have a similar output;![Screenshot 2020-11-03 at 15.25.14](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/mysql-deployment.png)
+   You should now have a similar output;![Screenshot 2020-11-03 at 15.25.14](images/verrazzano/mysql-deployment.png)
 
 6. Now that the database is in place, let's deploy the Verrazzano Application Model for Bob's Books. The sample application however comes pre-defined with a couple of variables and since we created a secret with our initials (very much needed if you're multiple people working in the cluster) we need to make sure our secret is referred in the deployment file. 
 
@@ -272,8 +272,8 @@ Go to
    | Robert's Books                 | http://123.456.78.901/                 |                       |
    | Bobby's Books WebLogic Console | http://123.456.78.901/console          | `weblogic`/`welcome1` |
 
-4. If everything went as it should then you should be seeing this:![Bobbys Books](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/bobbys-books.png)
-   ![Roberts Books](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/roberts-books.png)
+4. If everything went as it should then you should be seeing this:![Bobbys Books](images/verrazzano/bobbys-books.png)
+   ![Roberts Books](images/verrazzano/roberts-books.png)
 
 5. `kubectl get ingress -A` gives you the endpoint names for your services. 
 
@@ -283,4 +283,4 @@ Go to
    kubectl get secret --namespace verrazzano-system verrazzano -o jsonpath={.data.password} | base64 --decode; echo
    ```
 
-6. Congratulations - you've complete the lab!
+6. Congratulations - you've completed the lab!
