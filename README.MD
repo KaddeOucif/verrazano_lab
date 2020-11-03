@@ -155,9 +155,9 @@ Go to
 
 6. If all of the steps are showing you a green <span style="color:#2c9320">**OK**</span> then you've most probably successfully installed Verrazzano. By using the scripts **Rancher**, **CertManager**, **Istio** and **Ingress Controllers** have been installed for you and set up for you. You can see the urls for a couple of services and the UI endpoint. Each password is saved in the secrets presented, save the commands. We're going to use some of them at the end. 
 
-   
-
    ![verrazzano-installation-complete](/Users/kadde/Documents/Projects-and-products/Labs-And-Workshops/cloud-native/WLS/ll-verrazzano-lab/images/verrazzano/verrazzano-installation-complete.png)
+
+   
 
    
 
