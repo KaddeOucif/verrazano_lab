@@ -19,7 +19,7 @@ First check if you already have the **CTDOKE** compartment
 
 - In the Cloud Infrastructure Console, click on the hamburger menu on the top left of the screen. From the pull-out menu, under Identity, click Compartments.
 
-![compartments1](images/menu-compartments.png)
+![compartments1](images/menu-compartments.jpeg)
 
 
 
@@ -38,7 +38,7 @@ If you are using a new **Free Tier** account, you will probably only have the ro
 
 - Click on **Create Compartment** button to start the compartment creation process
 
-![compartments3](images/create-compartments.png)
+![compartments3](images/create-compartment.png)
 
   
 
