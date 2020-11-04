@@ -13,7 +13,44 @@ If you do not have an account yet, you can obtain an Oracle Free Tier account by
 
 Open the [OCI console](https://console.eu-frankfurt-1.oraclecloud.com), log in using the **Single Sign On** menu on the **left** 
 
-<create a section explaining how to add compartment>
+### Creating a Compartment
+
+First check if you already have the **CTDOKE** compartment
+
+- In the Cloud Infrastructure Console, click on the hamburger menu on the top left of the screen. From the pull-out menu, under Identity, click Compartments.
+
+![compartments1](images/menu-compartments.png)
+
+
+
+  - You will see the list of compartments currently available in your instance, which will include at least the root compartment of your tenancy (with has the tenancy name). 
+
+![compartments2](images/compartments.png)
+
+    
+
+- If you already see the **CTDOKE** compartment in this list, 
+  **==> no need to create a new compartment !!**.    You can move to the next step (2. Creating a Kubernetes cluster)
+
+  
+
+If you are using a new **Free Tier** account, you will probably only have the root compartment, in that case: 
+
+- Click on **Create Compartment** button to start the compartment creation process
+
+![compartments3](images/create-compartments.png)
+
+  
+
+Enter the following in create Compartment window
+
+- **Name**: Enter **CTDOKE**
+- **Description**: Enter a description for the compartment
+- **Parent Compartment**:  select the root compartment.
+- Click on the **Create Compartment** link 
+- You can verify the compartment created on Compartments page
+
+
 
 ## 2. Setting up a Kubernetes cluster
 
@@ -223,7 +260,8 @@ Go to
    kubectl apply -f mysql.yaml
    ```
 
-   You should now have a similar output;![Screenshot 2020-11-03 at 15.25.14](images/verrazzano/mysql-deployment.png)
+   You should now have a similar output;
+![Screenshot 2020-11-03 at 15.25.14](images/verrazzano/mysql-deployment.png)
 
 6. Now that the database is in place, let's deploy the Verrazzano Application Model for Bob's Books. The sample application however comes pre-defined with a couple of variables and since we created a secret with our initials (very much needed if you're multiple people working in the cluster) we need to make sure our secret is referred in the deployment file. 
 
@@ -236,7 +274,7 @@ Go to
    As you can see, the credentials of the secret named `ocr` that we created earlier is already referred in various places where we need to authenticate towards the registry. Press `ctrl + X`if you're on Windows or `Control + X`if you're on Mac
 
    ```
-   kubectl apply -f mbobs-books-model.yaml
+   kubectl apply -f bobs-books-model.yaml
    ```
 
 7. Deploy the Verrazzano Application Binding for Bob's Books:
