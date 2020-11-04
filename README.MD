@@ -261,7 +261,13 @@ Go to
    ```
 
    You should now have a similar output;
-![Screenshot 2020-11-03 at 15.25.14](images/verrazzano/mysql-deployment.png)
+   ```
+   koucif@cloudshell:bobs-books (eu-frankfurt-1)$ kubectl apply -f mysql.yaml
+   namespace/bob created
+   configmap/mysql-initdb-config created
+   deployment.apps/mysql created
+   service/mysql created
+   ```
 
 6. Now that the database is in place, let's deploy the Verrazzano Application Model for Bob's Books. The sample application however comes pre-defined with a couple of variables and since we created a secret with our initials (very much needed if you're multiple people working in the cluster) we need to make sure our secret is referred in the deployment file. 
 
