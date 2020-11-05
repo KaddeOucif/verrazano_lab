@@ -281,7 +281,11 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    nano bobs-books-model.yaml 
    ```
 
-   As you can see, the credentials of the secret named `ocr` that we created earlier is already referred in various places where we need to authenticate towards the registry. Press `ctrl + X`if you're on Windows or `Control + X`if you're on Mac
+   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` that authenticates us towards Oracle registry is also            included in the model file as well as the prefix for the application.
+
+   Press `ctrl + X`if you're on Windows or `Control + X`if you're on Mac. If you get asked to Save anything just press `N`.
+  
+7. Deploy the model .yaml
 
    ```
    kubectl apply -f bobs-books-model.yaml
@@ -289,7 +293,7 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
 
 7. Deploy the Verrazzano Application Binding for Bob's Books:
 
-8. ```
+   ```
    kubectl apply -f bobs-books-binding.yaml
    ```
 
