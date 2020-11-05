@@ -1,4 +1,4 @@
-# Running Verrazano on Kubernetes
+# Running Verrazano on Kubernetes for various workloads
 
 ## Introduction
 <Insert introduction>
