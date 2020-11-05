@@ -66,13 +66,13 @@ We will be using an Oracle Cloud Managed Kubernetes cluster to deploy weblogic.
 
 - On the **Create cluster** screen, enter following parameters:
 
-    - Name : the name of your cluster.  We will be using the name *verrazzano_OkeLab_(your_initials)* in this tutorial.  Please replace (your_initials) by a 3-letter code, for example Abc
-    - Choose the **CTDOKE** compartment if it is available in the tenancy.
-    - Select ***v1.16.8*** in the Kubernetes Version section
-    - Select **Public** worker nodes
-    - Choose the shape **VM_Standard2.4**
+    - Name : the name of your cluster.  We will be using the name `verrazzano_OkeLab_(your_initials)` in this tutorial.  Please replace `(your_initials)` by a 3-letter code, for example `Abc`
+    - Choose the `CTDOKE` compartment if it is available in the tenancy.
+    - Select `v1.16.8` in the Kubernetes Version section
+    - Select `Public` worker nodes
+    - Choose the shape `VM_Standard2.4`
     - **Remark**: you might have to check available compute shapes on your tenancy.  You can do this by visualizing the **Service Limits** on the "Administration" , "Tenancy Details" page.
-    - Select the **Number of nodes** you want to create in the node pool.  For example you could make this correspond to the number of *Availability Domains* in the *Region* you are using : in Frankfurt this is **3**, in Amsterdam this is **1**.  More details [here](https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm).
+    - Select the **Number of nodes** you want to create in the node pool.  For example you could make this correspond to the number of *Availability Domains* in the *Region* you are using : in Frankfurt this is `3`, in Amsterdam this is `1`.  More details [here](https://docs.cloud.oracle.com/en-us/iaas/Content/General/Concepts/regions.htm).
     - Click the **Next** button to confirm the configuration, then **Create Cluster** to start the creation.
 
   
@@ -100,7 +100,7 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
   EXAMPLE ONLY : oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.aaaaaaaaae4wmmjvmzobzmojqmy3dqz4ggntbgcrtqzrvmy4d --file $HOME/.kube/config --region eu-frankfurt-1 --token-version 2.0.0 
   ```
   
-- (Optional) We will be running this command to validate that the cluster is up and running. Give it some time, generally it takes around 10 minutes before you can see the nodes listed.
+- (Optional) We will be running this command to validate that the cluster is up and running. Give it some time, generally it takes a couple of minutes before you can see the nodes listed.
 
   ```
   kubectl get nodes
@@ -121,15 +121,7 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    git clone https://github.com/verrazzano/verrazzano.git
    ```
 
-2. We need to set up env variables, keep in mind that they are only alive as long as the session so if you need to reconnect or restart the Cloud Shell during the installation you have to set them again. When setting the ```VERRAZZANO_KUBECONFIG``` variable you need to refer to your .config file. It's usually in ```/home/<user-home-folder-name>/.kube/config```, you can see an example down below.
-
-   ```
-   export CLUSTER_TYPE=OKE
-   export VERRAZZANO_KUBECONFIG=/home/koucif/.kube/config
-   export KUBECONFIG=$VERRAZZANO_KUBECONFIG
-   ```
-
-3. Create a secret for OCR so you can pull from the Oracle Container Registry repos
+2. Create a secret for OCR so you can pull from the Oracle Container Registry repos
 
    ```
    kubectl create secret docker-registry ocr \
@@ -139,18 +131,21 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
            --docker-email='kadday.oucif@oracle.com'
    ```
    
-4. Now we need to install helm and the version must be v3.0.x, v.3.1.x or v3.2.x. To not make it conflict with current versions of helm / upcoming downloads of helm to the later version we'll create a bin directory and refer to it in this lab.
+3. Now we need to install helm and the version must be v3.0.x, v.3.1.x or v3.2.x. To not make it conflict with current versions of helm / upcoming downloads of helm to the later version we'll create a bin directory and refer to it in this lab.
+  
+   Download the helm installation file
 
-   ```wget https://get.helm.sh/helm-v3.2.0-linux-amd64.tar.gz```
-
-   Unpack it
-
-   ```gunzip helm-v3.2.0-linux-amd64.tar.gz
-   gunzip helm-v3.2.0-linux-amd64.tar.gz
-   tar -xf helm-v3.2.0-linux-amd64.tar
+   ```
+   wget https://get.helm.sh/helm-v3.2.0-linux-amd64.tar.gz
    ```
 
-   Create a bin directory for it
+   Unpack the `.gz` file
+
+   ```gunzip helm-v3.2.0-linux-amd64.tar.gz```
+   ```gunzip helm-v3.2.0-linux-amd64.tar.gz```
+   ```tar -xf helm-v3.2.0-linux-amd64.tar```
+
+   Create a bin directory for helm
 
    ```mkdir $HOME/bin```
 
@@ -160,21 +155,30 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
 
    Edit the profile to include the bin directory
 
-   ```vi $HOME/.bashrc```
+   ```nano $HOME/.bashrc```
 
-   add a line at the end
+   Add the path to the bin folder
 
    ```export PATH=$HOME/bin:$PATH```
 
-   Save it
+4. We also need to set up the correct env variables for the Verrazzano installation. When setting the ```VERRAZZANO_KUBECONFIG``` variable you need to refer to your **.config** file. It's usually in ```/home/<user-home-folder-name>/.kube/config```, you can see an example down below.
+
+   ```
+   export CLUSTER_TYPE=OKE
+   export VERRAZZANO_KUBECONFIG=/home/koucif/.kube/config
+   export KUBECONFIG=$VERRAZZANO_KUBECONFIG
+   ```
+
+   When you've added these to the `.bashrc` file press `control + X` on Mac or `Ctrl + X` on Windows and then `Y`to Save
 
 5. Install Verrazano
 
-   First, we install istio. Script output displays progress.
-Go to
-   `cd /verrazzano/install/`
+   To install Verrazzano we need to run the scripts that we got from the Verrazzano git repo
    
-   Run the 1st script
+   Go to
+   ```cd /verrazzano/install/```
+   
+   Run the 1st script, which installs Istio
 
    ```./1-install-istio.sh```
 
@@ -182,7 +186,7 @@ Go to
 
    ``` ./2a-install-system-components-magicdns.sh``` 
 
-   Verrazano operators, admission controlers & such
+   Let's now install a couple of necessary components for Verrazzano such as the operators and admission controllers etc
 
    ```./3-install-verrazzano.sh```
 
