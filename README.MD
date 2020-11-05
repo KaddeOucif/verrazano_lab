@@ -311,7 +311,7 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    kubectl get service istio-ingressgateway -n istio-system
    ```
 
-   For example, assume the response is. Save the `EXTERNAL-IP` :
+   The resposne will look like this. Save the `EXTERNAL-IP` :
 
    ```
    NAME                   TYPE           CLUSTER-IP     EXTERNAL-IP      PORT(S)                      AGE
@@ -326,7 +326,9 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    | Robert's Books                 | http://123.456.78.901/                 |                       |
    | Bobby's Books WebLogic Console | http://123.456.78.901/console          | `weblogic`/`welcome1` |
 
-4. If everything went as it should then you should be seeing this:![Bobbys Books](images/verrazzano/bobbys-books.png)
+4. If everything went as it should then you should be seeing this if you visit Bobbys book store:![Bobbys Books](images/verrazzano/bobbys-books.png)
+   
+   And this if you visit Roberts Book store:
    ![Roberts Books](images/verrazzano/roberts-books.png)
 
 5. `kubectl get ingress -A` gives you the endpoint names for your services. 
