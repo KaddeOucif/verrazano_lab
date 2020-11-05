@@ -281,7 +281,9 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    nano bobs-books-model.yaml 
    ```
 
-   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` that authenticates us towards Oracle registry is also            included in the model file as well as the prefix for the application.
+   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` that authenticates us towards Oracle registry so we can pull    the containers is also included in the model file as well as the endpoint to reach the application.
+   
+   ![Screenshot 2020-11-03 at 13.27.09](images/verrazzano/bobs-books.png)
 
    Press `ctrl + X`if you're on Windows or `Control + X`if you're on Mac. If you get asked to Save anything just press `N`.
   
@@ -328,6 +330,8 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    ![Roberts Books](images/verrazzano/roberts-books.png)
 
 5. `kubectl get ingress -A` gives you the endpoint names for your services. 
+   
+    ![Screenshot 2020-11-03 at 13.27.09](images/verrazzano/interfaces.png)
 
    You access the **ElasticSearch**, **Kibana**, **Grafana** and **Prometheus** services by logging in with the username `Verrazzano`. Password can be retrieved by running the `kubectl get secret` command shown at the end of our Verrazzano installation:
 
