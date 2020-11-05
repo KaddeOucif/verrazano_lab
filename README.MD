@@ -340,24 +340,24 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    ```
    kubectl get secret --namespace verrazzano-system verrazzano -o jsonpath={.data.password} | base64 --decode; echo
    ```
-To reach the other services, see below.
-  
-#### The Keycloak admin console
+   To reach the other services, see below.
 
-**User:** `keycloakadmin`
+   **The Keycloak admin console**
 
-Run the following command to get the password:  
+   **User:** `keycloakadmin`
 
-`kubectl get secret --namespace keycloak keycloak-http -o jsonpath={.data.password} | base64 --decode; echo`
+   Run the following command to get the password:  
+
+   `kubectl get secret --namespace keycloak keycloak-http -o jsonpath={.data.password} | base64 --decode; echo`
 
 
-#### The Rancher console
+   **The Rancher console**
 
-**User:** `admin`
+   **User:** `admin`
 
-Run the following command to get the password:  
+   Run the following command to get the password:  
 
-`kubectl get secret --namespace cattle-system rancher-admin-secret -o jsonpath={.data.password} | base64 --decode; echo`
+   `kubectl get secret --namespace cattle-system rancher-admin-secret -o jsonpath={.data.password} | base64 --decode; echo`
 
 
 
