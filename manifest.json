@@ -1,7 +1,7 @@
 {
     "tutorials": [
         {
-            "title": "Running WebLogic on Kubernetes",
+            "title": "Verrazzano on OKE",
             "filename": "../README.MD"
         }
     ]
