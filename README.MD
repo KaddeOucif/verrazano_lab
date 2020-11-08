@@ -126,9 +126,9 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    ```
    kubectl create secret docker-registry ocr \
            --docker-server=container-registry.oracle.com \
-           --docker-username='kadday.oucif@oracle.com' \
-           --docker-password='MarieHassner123.' \
-           --docker-email='kadday.oucif@oracle.com'
+           --docker-username='<your-oracle-username>' \
+           --docker-password='<your-oracle-password>' \
+           --docker-email='<your-email>'
    ```
    
 3. Now we need to install helm and the version must be v3.0.x, v.3.1.x or v3.2.x. To not make it conflict with current versions of helm / upcoming downloads of helm to the later version we'll create a bin directory and refer to it in this lab.
