@@ -2,7 +2,7 @@
     "tutorials": [
         {
             "title": "Running WebLogic on Kubernetes",
-            "filename": "../WLS_on_OKE.md"
+            "filename": "../README.MD"
         }
     ]
 }
