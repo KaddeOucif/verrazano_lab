@@ -18,6 +18,8 @@ In this lab you will install Verrazzano on your OKE Cluster and deploy a sample 
    - A front-end web store "Robert's Books", which is a general book seller. This is implemented as a Helidon microservice, which gets book data from Coherence (using CDI) and has a React web UI.
    - A front-end web store "Bobby's Books", which is a children's book store. This is implemented as a Helidon microservice which gets book data from a (different) Coherence using CDI and has a JSF web UI running on WebLogic Server.
 
+![verrazzano-installation-complete](images/verrazzano/lab_architecture.png)
+
 Verrazzano will also spin up various telemetry components for you to be able to monitor and manage the different workloads in your environment. 
 
 ## Prerequisites
