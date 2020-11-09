@@ -121,7 +121,7 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    git clone https://github.com/verrazzano/verrazzano.git
    ```
 
-2. Create a secret for OCR so you can pull from the Oracle Container Registry repos
+2. Create a secret for OCR so you can pull from the Oracle Container Registry repos. **Use the same credentials you used when you signed in to accept the Terms and Conditions in the Container Registry page**.
 
    ```
    kubectl create secret docker-registry ocr \
