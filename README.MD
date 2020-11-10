@@ -296,7 +296,7 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    nano bobs-books-model.yaml 
    ```
 
-   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` that authenticates us towards Oracle registry so we can pull    the containers is also included in the model file as well as the endpoint to reach the application.
+   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` that authenticates us towards Oracle registry so we can pull    the containers is also included in the model file as well as the endpoint to reach the application. Feel free to examine the rest of the attributes.
    
    ![Screenshot 2020-11-03 at 13.27.09](images/verrazzano/bobs-books.png)
 
