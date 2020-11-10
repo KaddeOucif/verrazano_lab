@@ -290,13 +290,20 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
 
 6. Now that the database is in place, let's deploy the Verrazzano Application Model for Bob's Books.
 
-   Start with opening the .yaml file:
+   Start with opening the `model` file:
 
    ```
    nano bobs-books-model.yaml 
    ```
 
-   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` is the secret that authenticates us towards Oracle registry      so we can pull as well as the endpoint to reach each application. Feel free to examine the rest of the attributes.
+   The model file (as well as the binding file) is a Kubernetes custom resource definition (CRD) that tells Verrazzano what workloads it should deploy and what relationships the    components should have. Let's examine some of the key attributes. 
+   - `name` tells us what name the service should have, in this case `bobbys-front-end` is the first service name
+   - `image` gives us the repo from which we will pull our image. In this case we're pulling it from the Oracle Container registry, but you could also host your    own custom images in `OCIR` and pull them from their
+   - Under the `weblogicCredentialsSecret.name` we can find `bobbys-front-end-weblogic-credentials` which is the credentials the weblogic domain admin should        have
+   - `imagePullSecrets` is the secret used to pull the image from the url we provided under `image` earlier. Keep in mind that doing this from the OCIR requires     you to have the right credentials to that privare repository as well.
+   - The last highlighted value is the `prefix` mentioned at the end, showing us at what endpoint we can reach the application.
+   
+   You can see that all of the segments are split up in workloads, in the beginning you can see `weblogicDomains` listed but further down `helidonApplications`      and `coherenceClusters` are also specified. 
    
    ![Screenshot 2020-11-03 at 13.27.09](images/verrazzano/bobs-books.png)
 
@@ -308,11 +315,13 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    kubectl apply -f bobs-books-model.yaml
    ```
 
-7. Deploy the Verrazzano Application Binding for Bob's Books:
+8. The binding maps the Verrazzano model to an environment and defines a placement to the different components within the model file to it's right places. If you    `nano` the binding just as we did in the previous section, you can see that each service is defined under the desired namespace etc. Here you can find some       more information about the [model](https://verrazzano.io/docs/reference/model/) and [binding](https://verrazzano.io/docs/reference/binding/).
 
-   ```
-   kubectl apply -f bobs-books-binding.yaml
-   ```
+ 9. Deploy the Verrazzano Application Binding for Bob's Books:
+
+      ```
+      kubectl apply -f bobs-books-binding.yaml
+      ```
 
 ## 5. Access the example application
 
