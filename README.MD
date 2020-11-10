@@ -288,15 +288,15 @@ oci ce cluster create-kubeconfig --cluster-id ocid1.cluster.oc1.eu-frankfurt-1.a
    service/mysql created
    ```
 
-6. Now that the database is in place, let's deploy the Verrazzano Application Model for Bob's Books. The sample application however comes pre-defined with a couple of variables and since we created a secret with our initials (very much needed if you're multiple people working in the cluster) we need to make sure our secret is referred in the deployment file. 
+6. Now that the database is in place, let's deploy the Verrazzano Application Model for Bob's Books.
 
-   Start with:
+   Start with opening the .yaml file:
 
    ```
    nano bobs-books-model.yaml 
    ```
 
-   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` that authenticates us towards Oracle registry so we can pull    the containers is also included in the model file as well as the endpoint to reach the application. Feel free to examine the rest of the attributes.
+   As you can see, the weblogic credentials `bobbys-front-end-weblogic-credentials` are used. `ocr` is the secret that authenticates us towards Oracle registry      so we can pull as well as the endpoint to reach each application. Feel free to examine the rest of the attributes.
    
    ![Screenshot 2020-11-03 at 13.27.09](images/verrazzano/bobs-books.png)
 
