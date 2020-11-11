@@ -1,4 +1,4 @@
-# Running Verrazano on Kubernetes for various workloads
+# Running Verrazzano for various workloads
 
 ## Introduction
 Verrazzano is an end-to-end Enterprise Container Platform for deploying cloud-native and traditional applications in multi-cloud and hybrid environments. It is made up of a curated set of open source components – many that you may already use and trust, and some that were written specifically to pull together all of the pieces that make Verrazzano a cohesive and easy to use platform.
