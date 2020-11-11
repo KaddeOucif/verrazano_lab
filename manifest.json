@@ -1,7 +1,7 @@
 {
     "tutorials": [
         {
-            "title": "Verrazzano on OKE",
+            "title": "Running Verrazzano for various workloads",
             "filename": "../README.MD"
         }
     ]
